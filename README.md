@@ -25,10 +25,12 @@ Created python function in /home/vagrant/test-hw
 ```
 
 2. Take a look around and change the `func.py` code as follows:
-```python
+```
 # cd test-hw
 
 # cat func.py
+```
+```python
 from parliament import Context
 from flask import Request
 import json
