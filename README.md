@@ -12,7 +12,7 @@ It also provides a couple of sample scripts to deploy a Knative service and a fu
 ## Access the environment
 
     $ vagrant ssh
-    $ sudo su
+    [vagrant@localhost ~]$ sudo su
     
 Check if all the pods are running:
 ```
