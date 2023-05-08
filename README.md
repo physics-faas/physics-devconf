@@ -56,6 +56,9 @@ Created python function in /home/vagrant/test-hw
 ```
 # cd test-hw
 
+# ls
+app.sh  func.py  func.yaml  Procfile  README.md  requirements.txt  test_func.py
+
 # cat func.py
 ```
 ```python
