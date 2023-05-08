@@ -20,7 +20,6 @@ Bringing machine 'default' up with 'libvirt' provider...
     default: ./allocate.sh: line 251: dapr: command not found
     default: ~/go/src/github.com/knative/func
     default: {"insecure-registries": ["localhost:50000"]}
-    
 ```
 
 ## Access the environment
