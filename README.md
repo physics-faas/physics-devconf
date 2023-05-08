@@ -1,9 +1,9 @@
 # physics-devconf
 
-This repository provides an easy way to deploy a KinD cluster with knative (using [1]) on
+This repository provides an easy way to deploy a [KinD](https://kind.sigs.k8s.io/) cluster with [Knative](https://knative.dev/) (using [[1]](https://github.com/knative/func/blob/main/hack/allocate.sh)) on
 top of a Fedora 37 VM.
 
-It also provides a couple of sample scripts to deploy a knative service and a function
+It also provides a couple of sample scripts to deploy a Knative service and a function.
 
 ## Deploy the environment (VM)
 
