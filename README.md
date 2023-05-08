@@ -99,8 +99,8 @@ def main(context: Context):
 4. Deploy the function to the kind cluster:
 ```
 # func deploy --build=false --push=false
-   ✅ Function deployed in namespace "default" and exposed at URL: 
-   http://test-hw.default.127.0.0.1.sslip.io
+✅ Function deployed in namespace "default" and exposed at URL: 
+http://test-hw.default.127.0.0.1.sslip.io
 ```
 
 5. Invoke the function:
