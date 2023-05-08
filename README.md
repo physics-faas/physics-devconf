@@ -7,7 +7,21 @@ It also provides a couple of sample scripts to deploy a Knative service and a fu
 
 ## Deploy the environment (VM)
 
-    $ vagrant up
+Takes aprox. 10 minutes:
+```
+$ vagrant up
+Bringing machine 'default' up with 'libvirt' provider...
+==> default: Checking if box 'fedora/37-cloud-base' version '37.20221105.0' is up to date...
+==> default: Creating image (snapshot of base box volume).
+==> default: Creating domain with the following settings...
+...
+    default: configmap/config-br-defaults configured
+    default: ⑦ Dapr
+    default: ./allocate.sh: line 251: dapr: command not found
+    default: ~/go/src/github.com/knative/func
+    default: {"insecure-registries": ["localhost:50000"]}
+    
+```
 
 ## Access the environment
 
