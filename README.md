@@ -24,7 +24,7 @@ It also provides a couple of sample scripts to deploy a knative service and a fu
 Created python function in /home/vagrant/test-hw
 ```
 
-2. Take a look and change the code as follows:
+2. Take a look around and change the `func.py` code as follows:
 ```python
 # cd test-hw
 
