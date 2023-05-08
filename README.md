@@ -9,14 +9,42 @@ It also provides a couple of sample scripts to deploy a Knative service and a fu
 
     $ vagrant up
 
-## Use the environment
+## Access the environment
 
     $ vagrant ssh
     $ sudo su
-    # kubectl get pods -A
+    
+Check if all the pods are running:
+```
+# kubectl get pods -A
+NAMESPACE            NAME                                         READY   STATUS    RESTARTS   AGE
+knative-eventing     eventing-controller-64b4b79c45-cnctl         1/1     Running   0          68m
+knative-eventing     eventing-webhook-86f7dd95db-hpltb            1/1     Running   0          68m
+knative-eventing     imc-controller-769d8b7f66-jc5ph              1/1     Running   0          67m
+knative-eventing     imc-dispatcher-55979cf74b-tsq9n              1/1     Running   0          67m
+knative-eventing     mt-broker-controller-f97f8747-6h8mk          1/1     Running   0          67m
+knative-eventing     mt-broker-filter-77c75d69fb-zsjq4            1/1     Running   0          67m
+knative-eventing     mt-broker-ingress-d96f6d8b5-hh4t5            1/1     Running   0          67m
+knative-serving      activator-75777fd57c-5x5hz                   1/1     Running   0          69m
+knative-serving      autoscaler-57d647d6ff-t8gg2                  1/1     Running   0          69m
+knative-serving      controller-677995dc7b-hrhcl                  1/1     Running   0          69m
+knative-serving      domain-mapping-5676fb7bcf-g6xkn              1/1     Running   0          69m
+knative-serving      domainmapping-webhook-fcbd7dff4-fqhnv        1/1     Running   0          69m
+knative-serving      net-kourier-controller-55c99987b4-pccst      1/1     Running   0          67m
+knative-serving      webhook-544b958c69-s2w8g                     1/1     Running   0          69m
+kourier-system       3scale-kourier-gateway-7b89ff5c79-jkd2w      1/1     Running   0          67m
+kube-system          coredns-6d4b75cb6d-4v4wt                     1/1     Running   0          69m
+kube-system          coredns-6d4b75cb6d-7gvvn                     1/1     Running   0          69m
+kube-system          etcd-func-control-plane                      1/1     Running   0          69m
+kube-system          kindnet-zx5wm                                1/1     Running   0          69m
+kube-system          kube-apiserver-func-control-plane            1/1     Running   0          69m
+kube-system          kube-controller-manager-func-control-plane   1/1     Running   0          69m
+kube-system          kube-proxy-fhjxb                             1/1     Running   0          69m
+kube-system          kube-scheduler-func-control-plane            1/1     Running   0          69m
+local-path-storage   local-path-provisioner-6b84c5c67f-l9gnd      1/1     Running   0          69m
+```
 
 ## Create a new (python) function and invoke it
-
 
 1. Create the knative function:
 ```
