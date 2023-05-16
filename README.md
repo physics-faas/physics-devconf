@@ -26,7 +26,7 @@ Bringing machine 'default' up with 'libvirt' provider...
 
     $ vagrant ssh
     [vagrant@localhost ~]$ sudo -i
-    
+
 Check if all the pods are running:
 ```
 # kubectl get pods -A
@@ -85,12 +85,12 @@ def payload_print(req: Request) -> str:
         return "DevConf.cz 2023!"
 
 def main(context: Context):
-    """ 
+    """
     Function template
     The context parameter contains the Flask request object and any
     CloudEvent received with the request.
     """
-    
+
     # Add your business logic here
     print("Received request")
 
@@ -112,7 +112,7 @@ def main(context: Context):
 4. Deploy the function to the kind cluster:
 ```
 # func deploy --build=false --push=false
-✅ Function deployed in namespace "default" and exposed at URL: 
+✅ Function deployed in namespace "default" and exposed at URL:
      http://test-hw.default.127.0.0.1.sslip.io
 ```
 
@@ -120,6 +120,47 @@ def main(context: Context):
 ```
 # curl http://test-hw.default.127.0.0.1.sslip.io
 DevConf.cz 2023!
+```
+
+## Fork the base operator github repository and deploy locally
+
+
+1. Fork the github repository in your repository
+
+2. Clone your fork locally inside the VM
+```
+$ vagrant ssh
+# sudo su
+# cd
+# git clone https://github.com/YOUR_USER/devconf-knative-operator.git
+```
+
+3. Make your modifications
+```
+# cd devconf-knative-operator
+```
+
+4. Test your code by deploying it
+```
+# make deploy
+
+# # Check the deployment
+# kubectl get deployment -n devconf-knative-operator-system
+
+# # Check the pod
+# kubectl get pod -n devconf-knative-operator-system
+# kubectl logs -f -n devconf-knative-operator-system POD
+
+# # Create the CR to force reconcile loop for function registration
+# kubectl apply -f config/samples/XXXXX.yaml
+# # Check the logs
+# kubectl logs -f -n devconf-knative-operator-system POD
+```
+
+5. Undeploy (and go loop between step 3 and 5 until needed)
+```
+# kubectl delete -f config/samples/XXX.yaml
+# make undeploy
 ```
 
 [1] https://github.com/knative/func/blob/main/hack/allocate.sh
