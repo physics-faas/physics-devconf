@@ -125,9 +125,12 @@ DevConf.cz 2023!
 ## Fork the base operator github repository and deploy locally
 
 
-1. Fork the github repository in your repository
+1. Fork the github repository in your repository:
+```
+https://github.com/luis5tb/devconf-knative-operator
+```
 
-2. Clone your fork locally inside the VM
+2. Clone your fork locally inside the VM, change YOUR_USER by yours
 ```
 $ vagrant ssh
 $ sudo su
@@ -135,7 +138,8 @@ $ sudo su
 # git clone https://github.com/YOUR_USER/devconf-knative-operator.git
 ```
 
-   In case you want to start an operator from scratch do the next instead:
+   In case you want to start an operator from scratch do the next instead
+   (change XXX by your user):
 ```
 $ vagrant ssh
 $ sudo su
@@ -170,6 +174,7 @@ $ sudo su
 # Add, after "image: controller:latest": imagePullPolicy: IfNotPresent
 
 ## Then every time you have new code to check do the next
+## Increase the version (v0.0.X) as neeeded
 # make docker-build IMG="example.com/devconf-knative-operator:v0.0.X"
 # kind load docker-image example.com/devconf-knative-operator:v0.0.X --name func
 # make deploy IMG="example.com/devconf-knative-operator:v0.0.X"
@@ -182,14 +187,14 @@ $ sudo su
 # kubectl logs -f -n devconf-knative-operator-system POD
 
 # # Create the CR to force reconcile loop for function registration
-# kubectl apply -f config/samples/XXXXX.yaml
+# kubectl apply -f config/samples/cache_v1alpha1_knativefunction.yaml
 # # Check the logs
 # kubectl logs -f -n devconf-knative-operator-system POD
 ```
 
 5. Undeploy (and go loop between step 3 and 5 until needed)
 ```
-# kubectl delete -f config/samples/XXX.yaml
+# kubectl delete -f config/samples/cache_v1alpha1_knativefunction.yaml
 # make undeploy
 ```
 
