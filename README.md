@@ -130,19 +130,49 @@ DevConf.cz 2023!
 2. Clone your fork locally inside the VM
 ```
 $ vagrant ssh
-# sudo su
+$ sudo su
 # cd
 # git clone https://github.com/YOUR_USER/devconf-knative-operator.git
 ```
 
+   In case you want to start an operator from scratch do the next instead:
+```
+$ vagrant ssh
+$ sudo su
+# cd
+# mkdir devconf-knative-operator
+# cd devconf-knative-operator
+
+# # Create base operator
+# operator-sdk init --domain example.com --repo github.com/XXXX/devconf-knative-operator
+
+# # Add API
+# operator-sdk create api --group cache --version v1alpha1 --kind KnativeFunction --resource --controller
+```
+
+
 3. Make your modifications
 ```
 # cd devconf-knative-operator
+
+# # Make code modifications
+# make manifests
+# make generate
+
+# # Check sample function
+# cat config/samples/cache_v1alpha1_knativefunction.yaml
 ```
 
 4. Test your code by deploying it
 ```
-# make deploy
+# # First time only
+# # Edit config/manager/manager.yaml so that it does not try to download the image if present
+# Add, after "image: controller:latest": imagePullPolicy: IfNotPresent
+
+## Then every time you have new code to check do the next
+# make docker-build IMG="example.com/devconf-knative-operator:v0.0.X"
+# kind load docker-image example.com/devconf-knative-operator:v0.0.X --name func
+# make deploy IMG="example.com/devconf-knative-operator:v0.0.X"
 
 # # Check the deployment
 # kubectl get deployment -n devconf-knative-operator-system
