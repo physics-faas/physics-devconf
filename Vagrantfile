@@ -6,11 +6,15 @@ Vagrant.configure("2") do |config|
     v.cpus = 4
   end
 
-  config.vm.provision "shell" do |s|
-    s.path = 'install_dependencies.sh'
+  config.vm.provision "shell", privileged: false, reset: true do |s|
+    s.path = 'install_dependencies_1.sh'
   end
 
-  config.vm.provision "shell" do |s|
+  config.vm.provision "shell", privileged: false do |s|
+    s.path = 'install_dependencies_2.sh'
+  end
+
+  config.vm.provision "shell", privileged: false do |s|
     s.path = 'setup_func_kind.sh'
   end
 end

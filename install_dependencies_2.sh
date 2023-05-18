@@ -1,10 +1,7 @@
-# install dependencies
-dnf install -y jq wget docker go python3-pip git curl
-wget "https://github.com/sigstore/cosign/releases/download/v2.0.0/cosign-2.0.0.x86_64.rpm"
-sudo rpm -ivh cosign-2.0.0.x86_64.rpm
-systemctl start docker
+# install dependencies - part 2
+set -v
 
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+sudo cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
@@ -29,7 +26,7 @@ func version
 
 # Install kind
 go install sigs.k8s.io/kind@v0.18.0
-cp /root/go/bin/kind /usr/local/bin/
+sudo cp $HOME/go/bin/kind /usr/local/bin/
 kind --version
 
 # Install operator sdk

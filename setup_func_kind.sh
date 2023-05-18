@@ -1,3 +1,5 @@
+set -v
+
 pip install yq
 
 go env -w GO111MODULE=auto
