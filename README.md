@@ -67,8 +67,8 @@ local-path-storage   local-path-provisioner-6b84c5c67f-pqtcv      1/1     Runnin
 ```
 $ docker ps
 CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS          PORTS                                                                          NAMES
-59be051ba43c   registry:2             "/entrypoint.sh /etc…"   2 minutes ago   Up 8 minutes    127.0.0.1:50000->5000/tcp                                                      func-registry
-caf78811a6a9   kindest/node:v1.24.6   "/usr/local/bin/entr…"   4 minutes ago   Up 11 minutes   127.0.0.1:39609->6443/tcp, 127.0.0.1:80->30080/tcp, 127.0.0.1:443->30443/tcp   func-control-plane
+59be051ba43c   registry:2             "/entrypoint.sh /etc…"   2 minutes ago   Up 2 minutes     127.0.0.1:50000->5000/tcp                                                      func-registry
+caf78811a6a9   kindest/node:v1.24.6   "/usr/local/bin/entr…"   4 minutes ago   Up 4 minutes     127.0.0.1:39609->6443/tcp, 127.0.0.1:80->30080/tcp, 127.0.0.1:443->30443/tcp   func-control-plane
 ```
 
 
