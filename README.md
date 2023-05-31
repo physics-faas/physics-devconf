@@ -192,9 +192,9 @@ $ operator-sdk create api --group cache --version v1alpha1 --kind KnativeFunctio
 ```
 
 3. There are three important files to consider:
- - **controllers/knativefunction_controller.go**: implements the operator reconcile loop
- - **api/v1alpha1/knativefunction_types.go**: the KnativeFunction CRD definition
- - **config/samples/cache_v1alpha1_knativefunction.yaml**: an example KnativeFunction CRD
+   - **controllers/knativefunction_controller.go**: implements the operator reconcile loop
+   - **api/v1alpha1/knativefunction_types.go**: the KnativeFunction CRD definition
+   - **config/samples/cache_v1alpha1_knativefunction.yaml**: an example KnativeFunction CRD
 
 4. Make your modifications
 ```
