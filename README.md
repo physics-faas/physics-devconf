@@ -137,7 +137,18 @@ $ func deploy --build=false --push=false
      http://test-hw.default.127.0.0.1.sslip.io
 ```
 
-6. Invoke the function:
+6. Check that the function has been correctly deployed:
+```
+$ kubectl get deploy
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+test-hw-00001-deployment   0/0     0            0           104s
+
+$ kubectl get route
+NAME      URL                                         READY   REASON
+test-hw   http://test-hw.default.127.0.0.1.sslip.io   True
+```
+
+7. Invoke the function:
 ```
 $ curl http://test-hw.default.127.0.0.1.sslip.io
 DevConf.cz 2023!
