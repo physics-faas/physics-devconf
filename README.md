@@ -137,7 +137,7 @@ $ func deploy --build=false --push=false
      http://test-hw.default.127.0.0.1.sslip.io
 ```
 
-6. Check that the function has been correctly deployed. A new **Knative service (ksvc)** object is created, which triggers the knative controllers to create the other k8s objects (deployment and route). After approximately one minute minute the deployment is scaled down to 0 replicas if not used to spare resources:
+6. Check that the function has been correctly deployed. A new **Knative service (ksvc)** object is created, which triggers the Knative controllers to create the other k8s objects (deployment and route). After approximately one minute minute the deployment is scaled down to 0 replicas if not used to spare resources:
 ```
 $ kubectl get ksvc
 NAME      URL                                         LATESTCREATED   LATESTREADY     READY   REASON
