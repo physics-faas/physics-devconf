@@ -143,6 +143,10 @@ $ kubectl get deploy
 NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
 test-hw-00001-deployment   0/0     0            0           104s
 
+$ kubectl get ksvc
+NAME      URL                                         LATESTCREATED   LATESTREADY     READY   REASON
+test-hw   http://test-hw.default.127.0.0.1.sslip.io   test-hw-00001   test-hw-00001   True
+
 $ kubectl get route
 NAME      URL                                         READY   REASON
 test-hw   http://test-hw.default.127.0.0.1.sslip.io   True
