@@ -137,7 +137,7 @@ $ func deploy --build=false --push=false
      http://test-hw.default.127.0.0.1.sslip.io
 ```
 
-6. Check that the function has been correctly deployed. After aprox. 1 minute the deployment is scaled down to 0 replicas if not used to spare resources.
+6. Check that the function has been correctly deployed. After aprox. 1 minute the deployment is scaled down to 0 replicas if not used to spare resources:
 ```
 $ kubectl get deploy
 NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
