@@ -191,8 +191,12 @@ $ operator-sdk init --domain example.com --repo github.com/YOUR_USER/devconf-kna
 $ operator-sdk create api --group cache --version v1alpha1 --kind KnativeFunction --resource --controller
 ```
 
+3. There are three important files to consider:
+ - **controllers/knativefunction_controller.go**: implements the operator reconcile loop
+ - **api/v1alpha1/knativefunction_types.go**: the KnativeFunction CRD definition
+ - **config/samples/cache_v1alpha1_knativefunction.yaml**: an example KnativeFunction CRD
 
-3. Make your modifications
+4. Make your modifications
 ```
 $ cd devconf-knative-operator
 
@@ -204,7 +208,7 @@ $ make generate
 $ cat config/samples/cache_v1alpha1_knativefunction.yaml
 ```
 
-4. Test your code by deploying it
+5. Test your code by deploying it
 ```
 # First time only
 # Edit config/manager/manager.yaml so that it does not try to download the image if present
@@ -229,7 +233,7 @@ $ kubectl apply -f config/samples/cache_v1alpha1_knativefunction.yaml
 $ kubectl logs -f -n devconf-knative-operator-system POD
 ```
 
-5. Undeploy (and go loop between step 3 and 5 until needed)
+6. Undeploy (and go loop between step 3 and 5 until needed)
 ```
 $ kubectl delete -f config/samples/cache_v1alpha1_knativefunction.yaml
 $ make undeploy
