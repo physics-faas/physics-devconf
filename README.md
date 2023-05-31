@@ -137,19 +137,22 @@ $ func deploy --build=false --push=false
      http://test-hw.default.127.0.0.1.sslip.io
 ```
 
-6. Check that the function has been correctly deployed. After approximately one minute minute the deployment is scaled down to 0 replicas if not used to spare resources:
+6. Check that the function has been correctly deployed. A new Knative service (ksvc) object is created, which triggers the knative controllers to create the other k8s objects (deployment and route). After approximately one minute minute the deployment is scaled down to 0 replicas if not used to spare resources:
 ```
-$ kubectl get deploy
-NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
-test-hw-00001-deployment   0/0     0            0           104s
-
 $ kubectl get ksvc
 NAME      URL                                         LATESTCREATED   LATESTREADY     READY   REASON
 test-hw   http://test-hw.default.127.0.0.1.sslip.io   test-hw-00001   test-hw-00001   True
 
+$ kubectl get deploy
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+test-hw-00001-deployment   0/0     0            0           104s
+
 $ kubectl get route
 NAME      URL                                         READY   REASON
 test-hw   http://test-hw.default.127.0.0.1.sslip.io   True
+
+$ kubectl get pods
+(empty if more than a minute has passed)
 ```
 
 7. Invoke the function:
@@ -162,7 +165,7 @@ DevConf.cz 2023!
 ```
 $ kubectl get deploy
 NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
-test-hw-00001-deployment   1/1     1            1           3m20s
+test-hw-00001-deployment   1/1     1            1           3s
 ```
 
 
