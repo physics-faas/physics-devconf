@@ -209,6 +209,14 @@ Bringing machine 'default' up with 'libvirt' provider...
     ```
 
 5. Test your code by deploying it
+
+    First option is simply doing:
+        ```
+        $ go mod tidy
+        $ make install run
+        ```
+        
+    Second option, if you want to deploy your controller as a container too:
     ```
     # First time only
     # Edit config/manager/manager.yaml so that it does not try to download the image if present
@@ -219,7 +227,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ make docker-build IMG="example.com/devconf-knative-operator:v0.0.X"
     $ kind load docker-image example.com/devconf-knative-operator:v0.0.X --name func
     $ make deploy IMG="example.com/devconf-knative-operator:v0.0.X"
-
+    
     # Check the deployment
     $ kubectl get deployment -n devconf-knative-operator-system
 
@@ -227,13 +235,22 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ kubectl get pod -n devconf-knative-operator-system
     $ kubectl logs -f -n devconf-knative-operator-system POD
 
-    # Create the CR to force reconcile loop for function registration
-    $ kubectl apply -f config/samples/cache_v1alpha1_knativefunction.yaml
     # Check the logs
     $ kubectl logs -f -n devconf-knative-operator-system POD
     ```
-
-6. Undeploy (and go loop between step 3 and 5 until needed)
+6. Deploy a CR to force the controller to reconcile and get the function deployed/update/removed:
+    ```
+    # Create the CR to force reconcile loop for function registration
+    $ kubectl apply -f config/samples/cache_v1alpha1_knativefunction.yaml
+    
+    # Update the config/samples/cache_v1alpha1_knativefunction.yaml, for instance changing the minScale to 0 and re-apply:
+    $ kubectl apply -f config/samples/cache_v1alpha1_knativefunction.yaml
+    
+    # Delete the CR to remove the function
+    $ kubectl delete -f config/samples/cache_v1alpha1_knativefunction.yaml
+    ```
+   
+7. Undeploy (and go loop between step 3 and 5 until needed). If first option was used, just stop the make install run, if the containerized option was chosen, then the next:
     ```
     $ kubectl delete -f config/samples/cache_v1alpha1_knativefunction.yaml
     $ make undeploy
