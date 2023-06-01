@@ -194,7 +194,7 @@ Bringing machine 'default' up with 'libvirt' provider...
 3. There are three important files to consider:
    - **controllers/knativefunction_controller.go**: implements the operator reconcile loop
    - **api/v1alpha1/knativefunction_types.go**: the KnativeFunction CRD definition
-   - **config/samples/cache_v1alpha1_knativefunction.yaml**: an example KnativeFunction CRD
+   - **config/samples/knf_v1alpha1_knativefunction.yaml**: an example KnativeFunction CRD
 
 4. Make your modifications
     ```
@@ -206,7 +206,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ make generate
 
     # Check sample function
-    $ cat config/samples/cache_v1alpha1_knativefunction.yaml
+    $ cat config/samples/knf_v1alpha1_knativefunction.yaml
     ```
 
 5. Test your code by deploying it
@@ -238,14 +238,14 @@ Bringing machine 'default' up with 'libvirt' provider...
     # Check the logs
     $ kubectl logs -f -n devconf-knative-operator-system POD
     ```
-6. Deploy a CR to force the controller to reconcile and get the function deployed. First you need to edit the `config/samples/cache_v1alpha1_knativefunction.yaml` with the desired options:
+6. Deploy a CR to force the controller to reconcile and get the function deployed. First you need to edit the `config/samples/knf_v1alpha1_knativefunction.yaml` with the desired options:
     ```
     # Get the previously created function docker image information, with digest
     $ kubectl get nodes -oyaml | grep test-hw
       - localhost:50000/kn-user/test-hw@sha256:79c4568eedb9f3366c6ee6b72980eec2aff9a80796328888e10f834c00beb51f
      
     # Modify the config/samples/cache_v1alpha1_knativefunction.yaml using the above as image
-    $ cat config/samples/cache_v1alpha1_knativefunction.yaml
+    $ cat config/samples/knf_v1alpha1_knativefunction.yaml
     apiVersion: knf.example.com/v1alpha1
     kind: KnativeFunction
     metadata:
@@ -267,17 +267,17 @@ Bringing machine 'default' up with 'libvirt' provider...
     And then deploy/update/remote it with:
     ```
     # Create the CR to force reconcile loop for function registration
-    $ kubectl apply -f config/samples/cache_v1alpha1_knativefunction.yaml
+    $ kubectl apply -f config/samples/knf_v1alpha1_knativefunction.yaml
     
-    # Update the config/samples/cache_v1alpha1_knativefunction.yaml, for instance changing the minScale to 0 and re-apply:
-    $ kubectl apply -f config/samples/cache_v1alpha1_knativefunction.yaml
+    # Update the config/samples/knf_v1alpha1_knativefunction.yaml, for instance changing the minScale to 0 and re-apply:
+    $ kubectl apply -f config/samples/knf_v1alpha1_knativefunction.yaml
     
     # Delete the CR to remove the function
-    $ kubectl delete -f config/samples/cache_v1alpha1_knativefunction.yaml
+    $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     ```
    
 7. Undeploy (and go loop between step 3 and 5 until needed). If first option was used, just stop the make install run, if the containerized option was chosen, then the next:
     ```
-    $ kubectl delete -f config/samples/cache_v1alpha1_knativefunction.yaml
+    $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     $ make undeploy
     ```
