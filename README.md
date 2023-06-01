@@ -238,7 +238,33 @@ Bringing machine 'default' up with 'libvirt' provider...
     # Check the logs
     $ kubectl logs -f -n devconf-knative-operator-system POD
     ```
-6. Deploy a CR to force the controller to reconcile and get the function deployed/update/removed:
+6. Deploy a CR to force the controller to reconcile and get the function deployed. First you need to edit the `config/samples/cache_v1alpha1_knativefunction.yaml` with the desired options:
+    ```
+    # Get the previously created function docker image information, with digest
+    $ kubectl get nodes -oyaml | grep test-hw
+      - localhost:50000/kn-user/test-hw@sha256:79c4568eedb9f3366c6ee6b72980eec2aff9a80796328888e10f834c00beb51f
+     
+    # Modify the config/samples/cache_v1alpha1_knativefunction.yaml using the above as image
+    $ cat config/samples/cache_v1alpha1_knativefunction.yaml
+    apiVersion: knf.example.com/v1alpha1
+    kind: KnativeFunction
+    metadata:
+      labels:
+        app.kubernetes.io/name: knativefunction
+        app.kubernetes.io/instance: knativefunction-sample
+        app.kubernetes.io/part-of: devconf-knative-operator
+        app.kubernetes.io/managed-by: kustomize
+        app.kubernetes.io/created-by: devconf-knative-operator
+      name: knativefunction-sample
+    spec:
+      name: test-function
+      image: localhost:50000/kn-user/test-hw@sha256:79c4568eedb9f3366c6ee6b72980eec2aff9a80796328888e10f834c00beb51f
+      maxscale: "2"
+      minscale: "1"
+      concurrency: 1
+    ```
+    
+    And then deploy/update/remote it with:
     ```
     # Create the CR to force reconcile loop for function registration
     $ kubectl apply -f config/samples/cache_v1alpha1_knativefunction.yaml
