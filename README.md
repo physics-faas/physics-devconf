@@ -201,6 +201,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ cd devconf-knative-operator
 
     # Make code modifications
+    $ go mod tidy
     $ make manifests
     $ make generate
 
@@ -212,7 +213,6 @@ Bringing machine 'default' up with 'libvirt' provider...
 
     First option is simply doing:
         ```
-        $ go mod tidy
         $ make install run
         ```
         
