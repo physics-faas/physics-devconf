@@ -6,7 +6,7 @@ It also provides a couple of sample scripts to deploy a Knative service and a fu
 
 ## Deploy the environment (VM)
 
-Takes aprox. 10 minutes:
+The VM requires 4 vCPUs and 4GB of memory. It takes approximately 10 minutes to come up:
 ```
 $ vagrant up
 Bringing machine 'default' up with 'libvirt' provider...
