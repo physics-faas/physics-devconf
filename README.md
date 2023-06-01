@@ -6,7 +6,7 @@ It also provides a couple of sample scripts to deploy a Knative service and a fu
 
 ## Deploy the environment (VM)
 
-The VM requires 4 vCPUs and 4GB of memory. It takes approximately 10 minutes to come up:
+The VM requires 4 vCPUs and 6GB of memory. It takes approximately 10 minutes to come up:
 ```
 $ vagrant up
 Bringing machine 'default' up with 'libvirt' provider...
@@ -19,7 +19,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     default: ./allocate.sh: line 251: dapr: command not found
     default: popd
     default: ~/go/src/github.com/knative/func
-    default: 
+    default:
     default: cat <<EOF | sudo tee /etc/docker/daemon.json
     default: {"insecure-registries": ["localhost:50000"]}
     default: EOF
@@ -215,7 +215,7 @@ Bringing machine 'default' up with 'libvirt' provider...
         ```
         $ make install run
         ```
-        
+
     Second option, if you want to deploy your controller as a container too:
     ```
     # First time only
@@ -227,7 +227,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ make docker-build IMG="example.com/devconf-knative-operator:v0.0.X"
     $ kind load docker-image example.com/devconf-knative-operator:v0.0.X --name func
     $ make deploy IMG="example.com/devconf-knative-operator:v0.0.X"
-    
+
     # Check the deployment
     $ kubectl get deployment -n devconf-knative-operator-system
 
@@ -243,7 +243,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     # Get the previously created function docker image information, with digest
     $ kubectl get nodes -oyaml | grep test-hw
       - localhost:50000/kn-user/test-hw@sha256:79c4568eedb9f3366c6ee6b72980eec2aff9a80796328888e10f834c00beb51f
-     
+
     # Modify the config/samples/cache_v1alpha1_knativefunction.yaml using the above as image
     $ cat config/samples/knf_v1alpha1_knativefunction.yaml
     apiVersion: knf.example.com/v1alpha1
@@ -263,19 +263,19 @@ Bringing machine 'default' up with 'libvirt' provider...
       minscale: "1"
       concurrency: 1
     ```
-    
+
     And then deploy/update/remote it with:
     ```
     # Create the CR to force reconcile loop for function registration
     $ kubectl apply -f config/samples/knf_v1alpha1_knativefunction.yaml
-    
+
     # Update the config/samples/knf_v1alpha1_knativefunction.yaml, for instance changing the minScale to 0 and re-apply:
     $ kubectl apply -f config/samples/knf_v1alpha1_knativefunction.yaml
-    
+
     # Delete the CR to remove the function
     $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     ```
-   
+
 7. Undeploy (and go loop between step 3 and 5 until needed). If first option was used, just stop the make install run, if the containerized option was chosen, then the next:
     ```
     $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
