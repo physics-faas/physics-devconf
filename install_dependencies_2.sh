@@ -25,14 +25,14 @@ sudo mv func /usr/local/bin
 func version
 
 # Install kind
-go install sigs.k8s.io/kind@v0.18.0
+go install sigs.k8s.io/kind@v0.19.0
 sudo cp $HOME/go/bin/kind /usr/local/bin/
 kind --version
 
 # Install operator sdk
 export ARCH=$(case $(uname -m) in x86_64) echo -n amd64 ;; aarch64) echo -n arm64 ;; *) echo -n $(uname -m) ;; esac)
 export OS=$(uname | awk '{print tolower($0)}')
-export OPERATOR_SDK_DL_URL=https://github.com/operator-framework/operator-sdk/releases/download/v1.28.1
+export OPERATOR_SDK_DL_URL=https://github.com/operator-framework/operator-sdk/releases/download/v1.29.0
 curl -LO ${OPERATOR_SDK_DL_URL}/operator-sdk_${OS}_${ARCH}
 gpg --keyserver keyserver.ubuntu.com --recv-keys 052996E2A20B5C7E
 curl -LO ${OPERATOR_SDK_DL_URL}/checksums.txt
