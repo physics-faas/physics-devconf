@@ -37,30 +37,39 @@ Bringing machine 'default' up with 'libvirt' provider...
     ```
     $ kubectl get pods -A
     NAMESPACE            NAME                                         READY   STATUS    RESTARTS   AGE
-    knative-eventing     eventing-controller-64b4b79c45-ptk85         1/1     Running   0          2m1s
-    knative-eventing     eventing-webhook-86f7dd95db-2kfdh            1/1     Running   0          2m1s
-    knative-eventing     imc-controller-769d8b7f66-tcg8h              1/1     Running   0          90s
-    knative-eventing     imc-dispatcher-55979cf74b-5c992              1/1     Running   0          90s
-    knative-eventing     mt-broker-controller-f97f8747-d7c6d          1/1     Running   0          78s
-    knative-eventing     mt-broker-filter-77c75d69fb-bc8l4            1/1     Running   0          79s
-    knative-eventing     mt-broker-ingress-d96f6d8b5-dqlw9            1/1     Running   0          78s
-    knative-serving      activator-75777fd57c-sz56g                   1/1     Running   0          2m40s
-    knative-serving      autoscaler-57d647d6ff-rjmdg                  1/1     Running   0          2m40s
-    knative-serving      controller-677995dc7b-v4mdh                  1/1     Running   0          2m40s
-    knative-serving      domain-mapping-5676fb7bcf-rpxdh              1/1     Running   0          2m40s
-    knative-serving      domainmapping-webhook-fcbd7dff4-l8zcq        1/1     Running   0          2m40s
-    knative-serving      net-kourier-controller-55c99987b4-6n7k9      1/1     Running   0          61s
-    knative-serving      webhook-544b958c69-fl5vb                     1/1     Running   0          2m39s
-    kourier-system       3scale-kourier-gateway-7b89ff5c79-r2j5p      1/1     Running   0          61s
-    kube-system          coredns-6d4b75cb6d-q4snl                     1/1     Running   0          3m10s
-    kube-system          coredns-6d4b75cb6d-xpmlj                     1/1     Running   0          3m10s
-    kube-system          etcd-func-control-plane                      1/1     Running   0          3m22s
-    kube-system          kindnet-h5qkq                                1/1     Running   0          3m11s
-    kube-system          kube-apiserver-func-control-plane            1/1     Running   0          3m22s
-    kube-system          kube-controller-manager-func-control-plane   1/1     Running   0          3m22s
-    kube-system          kube-proxy-pw8b7                             1/1     Running   0          3m11s
-    kube-system          kube-scheduler-func-control-plane            1/1     Running   0          3m23s
-    local-path-storage   local-path-provisioner-6b84c5c67f-pqtcv      1/1     Running   0          3m10s
+    contour-external     contour-56cfd44877-gmzdd                     1/1     Running     0          2m30s
+    contour-external     contour-56cfd44877-wj844                     1/1     Running     0          2m30s
+    contour-external     contour-certgen-v1.22.0-qbbx6                0/1     Completed   0          2m30s
+    contour-external     envoy-4j2vr                                  2/2     Running     0          2m30s
+    contour-internal     contour-865fdc98f9-48vv9                     1/1     Running     0          2m29s
+    contour-internal     contour-865fdc98f9-l22kw                     1/1     Running     0          2m29s
+    contour-internal     contour-certgen-v1.22.0-5t52p                0/1     Completed   0          2m30s
+    contour-internal     envoy-vlxrb                                  2/2     Running     0          2m29s
+    knative-eventing     eventing-controller-64b4b79c45-bxk6f         1/1     Running     0          4m5s
+    knative-eventing     eventing-webhook-86f7dd95db-phc9x            1/1     Running     0          4m5s
+    knative-eventing     imc-controller-769d8b7f66-hx2lj              1/1     Running     0          3m33s
+    knative-eventing     imc-dispatcher-55979cf74b-8n2w9              1/1     Running     0          3m33s
+    knative-eventing     mt-broker-controller-f97f8747-r7nnr          1/1     Running     0          3m21s
+    knative-eventing     mt-broker-filter-77c75d69fb-j4972            1/1     Running     0          3m21s
+    knative-eventing     mt-broker-ingress-d96f6d8b5-g4ng6            1/1     Running     0          3m21s
+    knative-serving      activator-75777fd57c-hwsth                   1/1     Running     0          4m49s
+    knative-serving      autoscaler-57d647d6ff-cs2bx                  1/1     Running     0          4m49s
+    knative-serving      controller-677995dc7b-9tbmj                  1/1     Running     0          4m48s
+    knative-serving      domain-mapping-5676fb7bcf-92xmf              1/1     Running     0          4m48s
+    knative-serving      domainmapping-webhook-fcbd7dff4-5v26r        1/1     Running     0          4m48s
+    knative-serving      net-contour-controller-847758c4bf-kltdx      1/1     Running     0          2m
+    knative-serving      webhook-544b958c69-h7vmz                     1/1     Running     0          4m48s
+    kube-system          coredns-6d4b75cb6d-btqsp                     1/1     Running     0          5m16s
+    kube-system          coredns-6d4b75cb6d-shbkf                     1/1     Running     0          5m16s
+    kube-system          etcd-func-control-plane                      1/1     Running     0          5m35s
+    kube-system          kindnet-mr2xx                                1/1     Running     0          5m16s
+    kube-system          kube-apiserver-func-control-plane            1/1     Running     0          5m30s
+    kube-system          kube-controller-manager-func-control-plane   1/1     Running     0          5m30s
+    kube-system          kube-proxy-vpb8z                             1/1     Running     0          5m16s
+    kube-system          kube-scheduler-func-control-plane            1/1     Running     0          5m32s
+    local-path-storage   local-path-provisioner-6b84c5c67f-575j5      1/1     Running     0          5m16s
+    metallb-system       controller-6c58495cbb-j52ls                  1/1     Running     0          3m3s
+    metallb-system       speaker-v5hd2                                1/1     Running     0          3m3s
     ```
 
 3. Check if the local registry is running:
