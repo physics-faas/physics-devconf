@@ -197,7 +197,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ operator-sdk init --domain example.com --repo github.com/YOUR_USER/devconf-knative-operator
 
     # Add API
-    $ operator-sdk create api --group cache --version v1alpha1 --kind KnativeFunction --resource --controller
+    $ operator-sdk create api --group knf --version v1alpha1 --kind KnativeFunction --resource --controller
     ```
 
 3. There are three important files to consider:
@@ -253,7 +253,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ kubectl get nodes -oyaml | grep test-hw
       - localhost:50000/kn-user/test-hw@sha256:79c4568eedb9f3366c6ee6b72980eec2aff9a80796328888e10f834c00beb51f
 
-    # Modify the config/samples/cache_v1alpha1_knativefunction.yaml using the above as image
+    # Modify the config/samples/knf_v1alpha1_knativefunction.yaml using the above as image
     $ cat config/samples/knf_v1alpha1_knativefunction.yaml
     apiVersion: knf.example.com/v1alpha1
     kind: KnativeFunction
