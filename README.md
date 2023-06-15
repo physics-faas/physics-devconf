@@ -331,3 +331,8 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     $ make undeploy
     ```
+
+## Links
+
+ - [Knative documentation](https://knative.dev/docs/)
+ - [Operator SDK - Go Operator tutorial](https://sdk.operatorframework.io/docs/building-operators/golang/tutorial/)
