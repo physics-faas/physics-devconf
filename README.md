@@ -284,8 +284,46 @@ Bringing machine 'default' up with 'libvirt' provider...
     # Delete the CR to remove the function
     $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     ```
+    
+7. To check the operator did its job, beside seeing the `make install run` logs, you can check as before:
+    ```
+    $ kubectl get ksvc
+    NAME           URL                                                LATESTCREATED        LATESTREADY     READY   REASON
+    test-hw        http://test-hw.default.127.0.0.1.sslip.io          test-hw-00001        test-hw-00001   True
+    test-function  http://test-function.default.127.0.0.1.sslip.io    test-function-00001  test-function-00001      True 
 
-7. Undeploy (and go loop between step 3 and 5 until needed). If first option was used, just stop the make install run, if the containerized option was chosen, then the next:
+    $ kubectl get deploy
+    NAME                             READY   UP-TO-DATE   AVAILABLE   AGE
+    test-hw-00001-deployment         0/0     0            0           20m
+    test-function-00001-deployment   0/0     0            0           1m38s
+
+    $ kubectl get route
+    NAME           URL                                              READY   REASON
+    test-hw        http://test-hw.default.127.0.0.1.sslip.io        True
+    test-function  http://test-function.default.127.0.0.1.sslip.io  True 
+    
+    $ kubectl get knativefunction
+    NAME                     AGE
+    knativefunction-sample   5m8s
+    
+    $ kubectl get knativefunction knativefunction-sample -o yaml
+    ...
+    ...
+    status:
+      deployed: true
+      route:  http://test-function.default.127.0.0.1.sslip.io
+
+    $ kubectl get pods
+    (empty if more than a minute has passed)
+    
+    $ curl http://test-function.default.127.0.0.1.sslip.io
+    DevConf.cz 2023!
+    
+    $ kubectl get pods
+    NAME                                              READY   STATUS    RESTARTS   AGE
+    test-function-00001-deployment-77f8b87654-6krps   2/2     Running   0          6s
+
+8. Undeploy (and go loop between step 3 and 5 until needed). If first option was used, just stop the make install run, if the containerized option was chosen, then the next:
     ```
     $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     $ make undeploy
