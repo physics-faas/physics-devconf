@@ -181,7 +181,7 @@ Bringing machine 'default' up with 'libvirt' provider...
 ## Fork the base operator github repository and deploy locally
 
 
-12. Fork this github repository in your github account: `https://github.com/luis5tb/devconf-knative-operator`
+12. Fork [this github repository](https://github.com/luis5tb/devconf-knative-operator) into your github account: `https://github.com/luis5tb/devconf-knative-operator`
 
 13. Clone your fork locally inside the VM (change **YOUR_USER** by yours):
     ```
