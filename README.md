@@ -83,13 +83,13 @@ Bringing machine 'default' up with 'libvirt' provider...
 
 ## Create a new (python) function and invoke it
 
-1. Create the knative function:
+4. Create the knative function:
     ```
     $ func create -l python test-hw
     Created python function in /home/vagrant/test-hw
     ```
 
-2. Take a look around and change the `func.py` code as follows:
+5. Take a look around and change the `func.py` code as follows:
     ```
     $ cd test-hw
 
@@ -125,7 +125,7 @@ Bringing machine 'default' up with 'libvirt' provider...
             return "{}", 200
     ```
 
-3. Build (and push) the function to the internal registry:
+6. Build (and push) the function to the internal registry:
     ```
     $ export FUNC_REGISTRY=localhost:50000/kn-user
     $ func build --push
@@ -133,20 +133,20 @@ Bringing machine 'default' up with 'libvirt' provider...
     🕕 Pushing function image to the registry "localhost:50000" using the "" user credentials
     ```
 
-4. Check that the image has been correctly pushed into the internal registry:
+7. Check that the image has been correctly pushed into the internal registry:
     ```
     $ curl localhost:50000/v2/_catalog
     {"repositories":["kn-user/test-hw"]}
     ```
 
-5. Deploy the function to the kind cluster:
+8. Deploy the function to the kind cluster:
     ```
     $ func deploy --build=false --push=false
     ✅ Function deployed in namespace "default" and exposed at URL:
          http://test-hw.default.127.0.0.1.sslip.io
     ```
 
-6. Check that the function has been correctly deployed. A new **Knative service (ksvc)** object is created, which triggers the Knative controllers to create the other k8s objects (deployment and route). After approximately one minute minute the deployment is scaled down to 0 replicas if not used to spare resources:
+9. Check that the function has been correctly deployed. A new **Knative service (ksvc)** object is created, which triggers the Knative controllers to create the other k8s objects (deployment and route). After approximately one minute minute the deployment is scaled down to 0 replicas if not used to spare resources:
     ```
     $ kubectl get ksvc
     NAME      URL                                         LATESTCREATED   LATESTREADY     READY   REASON
@@ -164,13 +164,13 @@ Bringing machine 'default' up with 'libvirt' provider...
     (empty if more than a minute has passed)
     ```
 
-7. Invoke the function:
+10. Invoke the function:
     ```
     $ curl http://test-hw.default.127.0.0.1.sslip.io
     DevConf.cz 2023!
     ```
 
-8. Check that the deployment has been scaled up:
+11. Check that the deployment has been scaled up:
     ```
     $ kubectl get deploy
     NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
@@ -181,9 +181,9 @@ Bringing machine 'default' up with 'libvirt' provider...
 ## Fork the base operator github repository and deploy locally
 
 
-1. Fork this github repository in your github account: `https://github.com/luis5tb/devconf-knative-operator`
+12. Fork this github repository in your github account: `https://github.com/luis5tb/devconf-knative-operator`
 
-2. Clone your fork locally inside the VM (change **YOUR_USER** by yours):
+13. Clone your fork locally inside the VM (change **YOUR_USER** by yours):
     ```
     $ git clone https://github.com/YOUR_USER/devconf-knative-operator.git
     ```
@@ -200,12 +200,12 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ operator-sdk create api --group knf --version v1alpha1 --kind KnativeFunction --resource --controller
     ```
 
-3. There are three important files to consider:
+14. There are three important files to consider:
    - **controllers/knativefunction_controller.go**: implements the operator reconcile loop
    - **api/v1alpha1/knativefunction_types.go**: the KnativeFunction CRD definition
    - **config/samples/knf_v1alpha1_knativefunction.yaml**: an example KnativeFunction CRD
 
-4. Make your modifications
+15. Make your modifications
     ```
     $ cd devconf-knative-operator
 
@@ -218,7 +218,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ cat config/samples/knf_v1alpha1_knativefunction.yaml
     ```
 
-5. Test your code by deploying it
+16. Test your code by deploying it
 
     First option is simply doing:
         ```
@@ -247,7 +247,10 @@ Bringing machine 'default' up with 'libvirt' provider...
     # Check the logs
     $ kubectl logs -f -n devconf-knative-operator-system POD
     ```
-6. Deploy a CR to force the controller to reconcile and get the function deployed. First you need to edit the `config/samples/knf_v1alpha1_knativefunction.yaml` with the desired options:
+
+## Solution
+
+17. Deploy a CR to force the controller to reconcile and get the function deployed. First you need to edit the `config/samples/knf_v1alpha1_knativefunction.yaml` with the desired options:
     ```
     # Get the previously created function docker image information, with digest
     $ kubectl get nodes -oyaml | grep test-hw
@@ -285,7 +288,7 @@ Bringing machine 'default' up with 'libvirt' provider...
     $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     ```
     
-7. To check the operator did its job, beside seeing the `make install run` logs, you can check as before:
+18. To check the operator did its job, beside seeing the `make install run` logs, you can check as before:
     ```
     $ kubectl get ksvc
     NAME           URL                                                LATESTCREATED        LATESTREADY     READY   REASON
