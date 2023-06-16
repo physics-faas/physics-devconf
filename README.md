@@ -353,7 +353,7 @@ The provision script installs:
 
 22. [**Challenge**] The goal now is to extend the operator to deploy the existing Knative function (from step 6). Once this is accomplished, extend the operator to build, push and deploy any function located on a given github repository.
  
-    You will need to interact with the K8s API from the controller (`knativefunction_controller.go`). [This example repo](knativefunction_controller.go) contains a Memcached operator that ilustrates how to create K8s objects from the controller (i.e. a Deployment).
+    You will need to interact with the K8s API from the controller (`knativefunction_controller.go`). [This example repo](https://github.com/operator-framework/operator-sdk/tree/master/testdata/go/v3/memcached-operator) contains a Memcached operator that ilustrates how to create K8s objects from the controller (i.e. a Deployment).
 
     Make code changes, undeploy and iterate (looping between step 14 and 19 until needed). If the first option was used, just stop the make install run, if the containerized option was chosen, then the next:
     ```
