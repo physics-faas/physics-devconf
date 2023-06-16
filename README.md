@@ -6,8 +6,8 @@ It also provides a couple of sample scripts to deploy a Knative service and a fu
 
 ## Index
 - [physics-devconf](#physics-devconf)
-  - [Goals](#goals)
   - [Index](#index)
+  - [Goals](#goals)
   - [Deploy the environment (VM)](#deploy-the-environment-vm)
   - [Access the environment](#access-the-environment)
   - [Create a new (python) function and invoke it](#create-a-new-python-function-and-invoke-it)
