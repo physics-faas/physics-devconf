@@ -236,7 +236,41 @@ The provision script installs:
    - **api/v1alpha1/knativefunction_types.go**: the KnativeFunction CRD definition
    - **config/samples/knf_v1alpha1_knativefunction.yaml**: an example KnativeFunction CRD
 
-15. Make your modifications
+15. Let's take a look at **api/v1alpha1/knativefunction_types.go**, as you can see it defines an example `Foo` field:
+    ```golang
+    ...
+    type KnativeFunctionSpec struct {
+        // Foo is an example field of KnativeFunction. Edit knativefunction_types.go to remove/update
+        Foo string `json:"foo,omitempty"`
+    }
+    ...
+    ```
+
+16. Let's modify the operator reconcyle loop in **controllers/knativefunction_controller.go**:
+    
+    Before:
+    ```golang
+    func (r *KnativeFunctionReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+        _ = log.FromContext(ctx)
+
+        // TODO(user): your logic here
+
+        return ctrl.Result{}, nil
+    }
+    ```
+    After:
+    ```golang
+    func (r *KnativeFunctionReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+        log := log.FromContext(ctx)
+
+        function := &knfv1alpha1.KnativeFunction{}
+        log.Info("Received a request to create a new knativefunction", "Foo =", function.Spec.Foo)
+
+        return ctrl.Result{}, nil
+    }
+    ```
+
+
     ```
     $ cd devconf-knative-operator
 
@@ -249,14 +283,32 @@ The provision script installs:
     $ cat config/samples/knf_v1alpha1_knativefunction.yaml
     ```
 
-16. Test your code by deploying it
+17. Test your code by deploying it. You will need two terminals, **T1** and **T2**.
 
-    First option is simply doing:
-        ```
-        $ make install run
-        ```
+    [**T1**] First option is simply doing `make install run`:
+    ```
+    $ make install run
+    test -s /home/vagrant/devconf-knative-operator/bin/controller-gen && /home/vagrant/devconf-knative-operator/bin/controller-gen --version | grep -q v0.11.1 || \
+    GOBIN=/home/vagrant/devconf-knative-operator/bin go install sigs.k8s.io/controller-tools/cmd/controller-gen@v0.11.1
+    /home/vagrant/devconf-knative-operator/bin/controller-gen rbac:roleName=manager-role crd webhook paths="./..." output:crd:artifacts:config=config/crd/bases
+    /home/vagrant/devconf-knative-operator/bin/kustomize build config/crd | kubectl apply -f -
+    Warning: Detected changes to resource knativefunctions.knf.example.com which is currently being deleted.
+    customresourcedefinition.apiextensions.k8s.io/knativefunctions.knf.example.com configured
+    /home/vagrant/devconf-knative-operator/bin/controller-gen object:headerFile="hack/boilerplate.go.txt" paths="./..."
+    go fmt ./...
+    go vet ./...
+    go run ./main.go
+    I0616 08:11:27.582792   10567 request.go:682] Waited for 1.041837981s due to client-side throttling, not priority and fairness, request: GET:https://127.0.0.1:44399/apis/networking.internal.knative.dev/v1alpha1?timeout=32s
+    2023-06-16T08:11:27Z	INFO	controller-runtime.metrics	Metrics server is starting to listen	{"addr": ":8080"}
+    2023-06-16T08:11:27Z	INFO	setup	starting manager
+    2023-06-16T08:11:27Z	INFO	Starting server	{"path": "/metrics", "kind": "metrics", "addr": "[::]:8080"}
+    2023-06-16T08:11:27Z	INFO	Starting server	{"kind": "health probe", "addr": "[::]:8081"}
+    2023-06-16T08:11:27Z	INFO	Starting EventSource	{"controller": "knativefunction", "controllerGroup": "knf.example.com", "controllerKind": "KnativeFunction", "source": "kind source: *v1alpha1.KnativeFunction"}
+    2023-06-16T08:11:27Z	INFO	Starting Controller	{"controller": "knativefunction", "controllerGroup": "knf.example.com", "controllerKind": "KnativeFunction"}
+    2023-06-16T08:11:27Z	INFO	Starting workers	{"controller": "knativefunction", "controllerGroup": "knf.example.com", "controllerKind": "KnativeFunction", "worker count": 1}
+    ```
 
-    Second option, if you want to deploy your controller as a container too:
+    [**T1**] Second option, if you want to deploy your controller as a container too:
     ```
     # First time only
     # Edit config/manager/manager.yaml so that it does not try to download the image if present
@@ -279,9 +331,39 @@ The provision script installs:
     $ kubectl logs -f -n devconf-knative-operator-system POD
     ```
 
+18. [**T2**] In a **second terminal** create a sample CRD:
+    ```yaml
+    $ cat <<EOF | kubectl apply -f -
+    ---
+    apiVersion: knf.example.com/v1alpha1
+    kind: KnativeFunction
+    metadata:
+    labels:
+        app.kubernetes.io/name: knativefunction
+        app.kubernetes.io/instance: knativefunction-sample
+        app.kubernetes.io/part-of: devconf-knative-operator
+        app.kubernetes.io/managed-by: kustomize
+        app.kubernetes.io/created-by: devconf-knative-operator
+    name: knativefunction-sample
+    spec:
+       foo: test
+    EOF
+    ```
+
+19. [**T1**] In the **first terminal** you should see something like:
+    ```
+    2023-06-16T08:12:54Z	INFO	Received a request to create a new knativefunction	{"controller": "knativefunction", "controllerGroup": "knf.example.com", "controllerKind": "KnativeFunction", "KnativeFunction": {"name":"knativefunction-sample","namespace":"default"}, "namespace": "default", "name": "knativefunction-sample", "reconcileID": "9be34733-bca6-4134-bf6d-8f0ed69106bd", "Foo =": "test"}
+    ```
+
+20. Undeploy and iterate (and go loop between step 14 and 19 until needed). If first option was used, just stop the make install run, if the containerized option was chosen, then the next:
+    ```
+    $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
+    $ make undeploy
+    ```
+
 ## Solution
 
-17. Deploy a CR to force the controller to reconcile and get the function deployed. First you need to edit the `config/samples/knf_v1alpha1_knativefunction.yaml` with the desired options:
+21. Deploy a CR to force the controller to reconcile and get the function deployed. First you need to edit the `config/samples/knf_v1alpha1_knativefunction.yaml` with the desired options:
     ```
     # Get the previously created function docker image information, with digest
     $ kubectl get nodes -oyaml | grep test-hw
@@ -319,7 +401,7 @@ The provision script installs:
     $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     ```
     
-18. To check the operator did its job, beside seeing the `make install run` logs, you can check as before:
+22. To check the operator did its job, beside seeing the `make install run` logs, you can check as before:
     ```
     $ kubectl get ksvc
     NAME           URL                                                LATESTCREATED        LATESTREADY     READY   REASON
@@ -356,11 +438,6 @@ The provision script installs:
     $ kubectl get pods
     NAME                                              READY   STATUS    RESTARTS   AGE
     test-function-00001-deployment-77f8b87654-6krps   2/2     Running   0          6s
-
-8. Undeploy (and go loop between step 3 and 5 until needed). If first option was used, just stop the make install run, if the containerized option was chosen, then the next:
-    ```
-    $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
-    $ make undeploy
     ```
 
 ## Links
