@@ -367,3 +367,5 @@ The provision script installs:
 
  - [Knative documentation](https://knative.dev/docs/)
  - [Operator SDK - Go Operator tutorial](https://sdk.operatorframework.io/docs/building-operators/golang/tutorial/)
+ - [Intermediate Kubernetes Operators on IBM Developer Skills Network](https://courses.course-dev.skills.network/courses/course-v1:IBMSkillsNetwork+CO0201EN+2021T1/course/)
+
