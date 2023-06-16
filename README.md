@@ -4,11 +4,6 @@ This repository provides an easy way to deploy a [KinD](https://kind.sigs.k8s.io
 
 It also provides a couple of sample scripts to deploy a Knative service and a function.
 
-## Goals
-
- - Get familiar on how to create/test Knative functions
- - Get familiar with the operator SDK
-
 ## Index
 - [physics-devconf](#physics-devconf)
   - [Goals](#goals)
@@ -20,6 +15,10 @@ It also provides a couple of sample scripts to deploy a Knative service and a fu
   - [Solution](#solution)
   - [Links](#links)
 
+## Goals
+
+ - Get familiar on how to create/test Knative functions
+ - Get familiar with the operator SDK
 
 ## Deploy the environment (VM)
 
