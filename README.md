@@ -352,7 +352,9 @@ The provision script installs:
     2023-06-16T08:12:54Z	INFO	Received a request to create a new knativefunction	{"controller": "knativefunction", "controllerGroup": "knf.example.com", "controllerKind": "KnativeFunction", "KnativeFunction": {"name":"knativefunction-sample","namespace":"default"}, "namespace": "default", "name": "knativefunction-sample", "reconcileID": "9be34733-bca6-4134-bf6d-8f0ed69106bd", "Foo =": "test"}
     ```
 
-20. Undeploy and iterate (and go loop between step 14 and 19 until needed). If first option was used, just stop the make install run, if the containerized option was chosen, then the next:
+22. [**Challenge**] The goal now is to extend the operator to deploy the existing knative function (from step 6). Once this is accomplished, extend the operator to build, push and deploy any function located on a given github repository.
+
+    Make code changes, undeploy and iterate (looping between step 14 and 19 until needed). If the first option was used, just stop the make install run, if the containerized option was chosen, then the next:
     ```
     $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     $ make undeploy
