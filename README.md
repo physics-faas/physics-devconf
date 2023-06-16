@@ -4,6 +4,23 @@ This repository provides an easy way to deploy a [KinD](https://kind.sigs.k8s.io
 
 It also provides a couple of sample scripts to deploy a Knative service and a function.
 
+## Goals
+
+ - Get familiar on how to create/test Knative functions
+ - Get familiar with the operator SDK
+
+## Index
+- [physics-devconf](#physics-devconf)
+  - [Goals](#goals)
+  - [Index](#index)
+  - [Deploy the environment (VM)](#deploy-the-environment-vm)
+  - [Access the environment](#access-the-environment)
+  - [Create a new (python) function and invoke it](#create-a-new-python-function-and-invoke-it)
+  - [Fork the base operator github repository and deploy locally](#fork-the-base-operator-github-repository-and-deploy-locally)
+  - [Solution](#solution)
+  - [Links](#links)
+
+
 ## Deploy the environment (VM)
 
 The VM requires 4 vCPUs and 6GB of memory. It takes approximately 10 minutes to come up:
@@ -25,6 +42,20 @@ Bringing machine 'default' up with 'libvirt' provider...
     default: EOF
     default: {"insecure-registries": ["localhost:50000"]}
 ```
+
+The provision script installs:
+ - Docker
+ - Golang
+ - Pip
+ - Git 
+ - Curl
+ - Wget
+ - Cosign
+ - Kubectl
+ - [Kn](https://knative.dev/docs/client/install-kn/) - the Knative client
+ - [Func](https://knative.dev/docs/functions/install-func/) - Knative functions
+ - Kind
+ - [Operator-sdk](https://sdk.operatorframework.io/docs/installation/)
 
 ## Access the environment
 
@@ -83,7 +114,7 @@ Bringing machine 'default' up with 'libvirt' provider...
 
 ## Create a new (python) function and invoke it
 
-4. Create the knative function:
+4. Create the Knative function:
     ```
     $ func create -l python test-hw
     Created python function in /home/vagrant/test-hw
