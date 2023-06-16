@@ -278,9 +278,6 @@ The provision script installs:
     $ go mod tidy
     $ make manifests
     $ make generate
-
-    # Check sample function
-    $ cat config/samples/knf_v1alpha1_knativefunction.yaml
     ```
 
 17. Test your code by deploying it. You will need two terminals, **T1** and **T2**.
