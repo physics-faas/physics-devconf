@@ -364,6 +364,7 @@ The provision script installs:
 ## Solution
 
 21. Deploy a CR to force the controller to reconcile and get the function deployed. First you need to edit the `config/samples/knf_v1alpha1_knativefunction.yaml` with the desired options:
+
     ```
     # Get the previously created function docker image information, with digest
     $ kubectl get nodes -oyaml | grep test-hw
@@ -401,7 +402,7 @@ The provision script installs:
     $ kubectl delete -f config/samples/knf_v1alpha1_knativefunction.yaml
     ```
     
-22. To check the operator did its job, beside seeing the `make install run` logs, you can check as before:
+23. To check the operator did its job, beside seeing the `make install run` logs, you can check as before:
     ```
     $ kubectl get ksvc
     NAME           URL                                                LATESTCREATED        LATESTREADY     READY   REASON
