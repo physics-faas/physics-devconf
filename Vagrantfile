@@ -1,5 +1,5 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "fedora/37-cloud-base"
+  config.vm.box = "fedora/38-cloud-base"
 
   config.vm.provider "libvirt" do |v|
     v.memory = "6144"
